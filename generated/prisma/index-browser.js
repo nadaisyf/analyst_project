@@ -121,12 +121,13 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.PostScalarFieldEnum = {
+exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  createdById: 'createdById'
+  email: 'email',
+  emailVerified: 'emailVerified',
+  image: 'image',
+  passwordHash: 'passwordHash'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {
@@ -152,18 +153,31 @@ exports.Prisma.SessionScalarFieldEnum = {
   expires: 'expires'
 };
 
-exports.Prisma.UserScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  emailVerified: 'emailVerified',
-  image: 'image'
-};
-
 exports.Prisma.VerificationTokenScalarFieldEnum = {
   identifier: 'identifier',
   token: 'token',
   expires: 'expires'
+};
+
+exports.Prisma.BookScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  author: 'author',
+  totalPages: 'totalPages',
+  readingStatus: 'readingStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReadingSessionScalarFieldEnum = {
+  id: 'id',
+  bookId: 'bookId',
+  sessionDate: 'sessionDate',
+  pagesRead: 'pagesRead',
+  note: 'note',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -180,14 +194,19 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.ReadingStatus = exports.$Enums.ReadingStatus = {
+  UNREAD: 'UNREAD',
+  READING: 'READING',
+  FINISHED: 'FINISHED'
+};
 
 exports.Prisma.ModelName = {
-  Post: 'Post',
+  User: 'User',
   Account: 'Account',
   Session: 'Session',
-  User: 'User',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Book: 'Book',
+  ReadingSession: 'ReadingSession'
 };
 
 /**

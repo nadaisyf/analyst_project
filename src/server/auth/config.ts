@@ -1,6 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import bcrypt from "bcrypt";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
+import Credentials from "next-auth/providers/credentials";
+import { z } from "zod";
 
 import { db } from "~/server/db";
 
@@ -25,6 +28,14 @@ declare module "next-auth" {
   // }
 }
 
+const credentialsSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+const DUMMY_HASH =
+  "$2b$12$5beKt4iJoDmej2wfThade.J00PI5vPdhaii.NrLI7SRak8tD8bIGW";
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -33,23 +44,39 @@ declare module "next-auth" {
 export const authConfig = {
   providers: [
     DiscordProvider,
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
+    Credentials({
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (rawCredentials) => {
+        const parsed = credentialsSchema.safeParse(rawCredentials);
+        if (!parsed.success) return null;
+
+        const email = parsed.data.email.toLowerCase();
+        const user = await db.user.findUnique({ where: { email } });
+        const passwordHash = user?.passwordHash ?? DUMMY_HASH;
+        const valid = await bcrypt.compare(parsed.data.password, passwordHash);
+
+        if (!valid || !user || !user.passwordHash) return null;
+
+        return {
+          id: user.id,
+          email: user.email ?? "",
+          name: user.name,
+          image: user.image,
+        };
+      },
+    }),
   ],
   adapter: PrismaAdapter(db),
+  session: { strategy: "jwt" },
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token }) => ({
       ...session,
       user: {
         ...session.user,
-        id: user.id,
+        id: token.sub as string,
       },
     }),
   },
