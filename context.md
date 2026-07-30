@@ -177,3 +177,76 @@ Planned additions:
 - Integration tests for Book Tracker API endpoints
 - Authentication flow tests
 - End-to-end tests using Playwright
+
+## API Surface
+
+### Authentication
+
+- getSession()
+  - Input: None
+  - Output: Current authenticated session or null
+  - Auth required: No
+
+### Admin Books
+
+- GET /admin/books
+  - Purpose: Display all books belonging to the authenticated user.
+  - Auth required: Yes
+
+- GET /admin/books/new
+  - Purpose: Display the form to create a new book.
+  - Auth required: Yes
+
+- POST createBook()
+  - Input: title, author, totalPages, readingStatus
+  - Output: BookActionResult
+  - Auth required: Yes
+
+- POST updateBook(id)
+  - Input: book id + updated book data
+  - Output: BookActionResult
+  - Auth required: Yes
+
+- POST deleteBook(id)
+  - Input: book id
+  - Output: BookActionResult
+  - Auth required: Yes
+
+- GET /admin/books/[id]/edit
+  - Purpose: Display the edit form for a user's book.
+  - Auth required: Yes
+
+## Security Notes
+
+### Dependency Audit (2026-07-30)
+
+Executed:
+
+```bash
+npm audit
+```
+
+Result:
+
+- 3 Critical vulnerabilities
+- 16 High vulnerabilities
+
+Main affected packages:
+
+- next-auth (@auth/core)
+- next
+- sharp
+- bcrypt
+- eslint ecosystem
+
+The available automatic fix requires:
+
+```bash
+npm audit fix --force
+```
+
+However, this would upgrade multiple major dependencies (NextAuth, Next.js, bcrypt, ESLint), which may introduce breaking changes.
+
+Following the project guidelines, these upgrades have been postponed until compatibility testing can be completed.
+
+The project CI pipeline will continue running `npm audit` so dependency vulnerabilities remain visible until they are safely resolved.
