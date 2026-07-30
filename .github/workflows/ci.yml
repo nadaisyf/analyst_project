@@ -9,6 +9,12 @@ jobs:
   gate:
     runs-on: ubuntu-latest
 
+    env:
+      AUTH_SECRET: ${{ s64Ap42SxAVmYUXQfZ0nvgfze3TOGekquP/IwoCQWPd4= }}
+      AUTH_DISCORD_ID: ${{ endee }}
+      AUTH_DISCORD_SECRET: ${{ ende }}
+      DATABASE_URL: ${{ postgresql://postgres:endeesye2106@localhost:5432/book_tracker }}
+
     steps:
       - uses: actions/checkout@v4
 
