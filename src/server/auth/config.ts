@@ -58,7 +58,7 @@ export const authConfig = {
         const passwordHash = user?.passwordHash ?? DUMMY_HASH;
         const valid = await bcrypt.compare(parsed.data.password, passwordHash);
 
-        if (!valid || !user || !user.passwordHash) return null;
+        if (!valid || !user?.passwordHash) return null;
 
         return {
           id: user.id,
@@ -76,7 +76,7 @@ export const authConfig = {
       ...session,
       user: {
         ...session.user,
-        id: token.sub as string,
+        id: token.sub!,
       },
     }),
   },

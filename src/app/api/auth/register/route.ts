@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { registerUser } from "~/server/auth/register";
 
 export async function POST(req: Request) {
-  const json = await req.json().catch(() => null);
+  const json: unknown = await req.json().catch(() => null);
   const result = await registerUser(json);
 
   if (!result.ok) {
