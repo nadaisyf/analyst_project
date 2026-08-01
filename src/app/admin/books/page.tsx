@@ -41,5 +41,4 @@ export default async function AdminBooksPage() {
   );
 }
 
-asdf;
 
