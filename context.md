@@ -250,3 +250,67 @@ However, this would upgrade multiple major dependencies (NextAuth, Next.js, bcry
 Following the project guidelines, these upgrades have been postponed until compatibility testing can be completed.
 
 The project CI pipeline will continue running `npm audit` so dependency vulnerabilities remain visible until they are safely resolved.
+
+## Security & CI
+
+### CI Pipeline
+
+This project uses GitHub Actions for Continuous Integration.
+
+Workflow location:
+
+.github/workflows/ci.yml
+
+Every Pull Request and push to `main` automatically runs:
+
+- ESLint
+- TypeScript type checking
+- Unit tests with coverage
+- npm audit (High severity)
+- Production build
+
+A merge is blocked if any required check fails.
+
+---
+
+### Branch Protection
+
+The `main` branch is protected using GitHub Branch Protection Rules.
+
+Enabled protections:
+
+- Require status checks to pass before merging
+- Require branches to be up to date before merging
+- Require at least one Pull Request review
+- CI (`gate`) must pass before merge
+
+Developers should never merge code while CI is failing.
+
+---
+
+### Secrets Management
+
+All sensitive credentials are stored as GitHub Secrets.
+
+Current secrets include:
+
+- AUTH_SECRET
+- AUTH_DISCORD_ID
+- AUTH_DISCORD_SECRET
+- DATABASE_URL
+
+No secrets are committed to the repository.
+
+---
+
+### Secret Rotation
+
+If a secret is exposed:
+
+1. Generate a new secret.
+2. Replace the value in GitHub Secrets.
+3. Update the deployment platform (Vercel).
+4. Redeploy the application.
+5. Invalidate the old credential.
+
+Secrets should be rotated immediately after any suspected exposure.
