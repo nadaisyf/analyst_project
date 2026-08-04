@@ -6,7 +6,7 @@ export default function NotFound() {
       <h1 className="text-6xl font-bold">404</h1>
 
       <p className="mt-4 text-xl">
-        We couldn't find the page you're looking for.
+        <h1>Sorry, we couldn&apos;t find that page.</h1>
       </p>
 
       <Link

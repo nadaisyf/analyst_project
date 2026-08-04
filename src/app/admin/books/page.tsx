@@ -1,5 +1,4 @@
 import Link from "next/link";
-import EmptyState from "~/components/EmptyState";
 
 import { BooksTable } from "~/app/admin/books/components/books-table";
 import { requireUser } from "~/app/admin/books/require-user";
