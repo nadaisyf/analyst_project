@@ -1,29 +1,127 @@
-# Create T3 App
+# Book Tracker
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## Overview
 
-## What's next? How do I make an app with this?
+Book Tracker is a web application that helps users organize and manage their personal reading list. Users can create an account, add books, update their reading status, and keep track of their reading journey in one place.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Tech Stack
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+This project is built with the T3 Stack because it provides end-to-end type safety, a modern development workflow, and an excellent developer experience.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Technologies used:
 
-## Learn More
+- Next.js (App Router)
+- TypeScript
+- Prisma
+- PostgreSQL
+- Tailwind CSS
+- NextAuth
+- tRPC
+- Vitest
+- Playwright
+- GitHub Actions
+- Vercel
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Running Locally
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Clone the repository:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+```bash
+git clone https://github.com/nadaisyf/analyst_project.git
+cd analyst_project
+```
 
-## How do I deploy this?
+Install dependencies:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+npm install
+```
+
+Create a `.env` file and configure the required environment variables.
+
+Run the database migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```
+http://localhost:3000
+```
+
+## Running Tests
+
+### Unit Tests
+
+```bash
+npm test
+```
+
+or
+
+```bash
+npm run test
+```
+
+### End-to-End Tests
+
+```bash
+npx playwright test
+```
+
+To view the Playwright report:
+
+```bash
+npx playwright show-report
+```
+
+## Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```env
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+```
+
+## Database
+
+The Prisma schema is located in:
+
+```
+prisma/schema.prisma
+```
+
+Run migrations whenever the schema changes:
+
+```bash
+npx prisma migrate dev
+```
+
+## Known Limitations
+
+- Search and filtering are not available yet.
+- Reading statistics have not been implemented.
+- Reading progress tracking is not available yet.
+
+## Future Improvements
+
+- Reading progress tracking
+- Search and filtering
+- Reading statistics dashboard
+- Book cover uploads
+- Dark mode
+- API rate limiting
+
+## Author
+
+Developed by **Nadaisyf**.

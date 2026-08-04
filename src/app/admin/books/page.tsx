@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EmptyState from "~/components/EmptyState";
 
 import { BooksTable } from "~/app/admin/books/components/books-table";
 import { requireUser } from "~/app/admin/books/require-user";
@@ -27,6 +28,7 @@ export default async function AdminBooksPage() {
             <h1 className="text-3xl font-extrabold tracking-tight">Books</h1>
             <p className="text-white/60">Manage your library</p>
           </div>
+
           <Link
             href="/admin/books/new"
             className="rounded-full bg-white/10 px-5 py-2 font-semibold transition hover:bg-white/20"
@@ -35,9 +37,25 @@ export default async function AdminBooksPage() {
           </Link>
         </header>
 
-        <BooksTable books={books} />
+        {books.length === 0 ? (
+          <div className="rounded-xl border border-white/10 bg-white/5 p-10 text-center">
+            <h2 className="text-2xl font-semibold">No books yet 📚</h2>
+            <p className="mt-2 text-white/60">
+              Your library is empty. Add your first book to start tracking your
+              reading progress.
+            </p>
+
+            <Link
+              href="/admin/books/new"
+              className="mt-6 inline-block rounded-full bg-indigo-600 px-6 py-3 font-semibold transition hover:bg-indigo-500"
+            >
+              Add your first book
+            </Link>
+          </div>
+        ) : (
+          <BooksTable books={books} />
+        )}
       </div>
     </main>
   );
 }
-
