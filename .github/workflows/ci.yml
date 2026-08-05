@@ -9,6 +9,21 @@ jobs:
   gate:
     runs-on: ubuntu-latest
 
+    services:
+    postgres:
+      image: postgres:16
+      env:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: endeesye2106
+        POSTGRES_DB: book_tracker
+      ports:
+        - 5432:5432
+      options: >-
+        --health-cmd="pg_isready -U postgres"
+        --health-interval=10s
+        --health-timeout=5s
+        --health-retries=5
+
     env:
       AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
       AUTH_DISCORD_ID: ${{ secrets.AUTH_DISCORD_ID }}
