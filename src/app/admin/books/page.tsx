@@ -25,7 +25,7 @@ export default async function AdminBooksPage() {
         <header className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight">Books</h1>
-            <p className="text-white/60">Manage your library</p>
+            <p className="text-white/60">Manage your shelf</p>
           </div>
 
           <Link
@@ -38,10 +38,9 @@ export default async function AdminBooksPage() {
 
         {books.length === 0 ? (
           <div className="rounded-xl border border-white/10 bg-white/5 p-10 text-center">
-            <h2 className="text-2xl font-semibold">No books yet 📚</h2>
+            <h2 className="text-2xl font-semibold">hmm, no books yet</h2>
             <p className="mt-2 text-white/60">
-              Your library is empty. Add your first book to start tracking your
-              reading progress.
+              Your shelf is waiting. Add your first book and start your reading journey.
             </p>
 
             <Link

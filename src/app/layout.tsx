@@ -6,8 +6,11 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-  title: "Book Tracker",
-  description: "Your Reading Era Starts Here",
+  title: {
+    default: "Shelfery",
+    template: "%s | Shelfery",
+  },
+  description: "your reading starts here.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
