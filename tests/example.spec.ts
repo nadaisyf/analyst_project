@@ -29,7 +29,7 @@ await expect(page).toHaveURL(/login/);
   await page.locator('[name="password"]').fill(password);
 
   await page.getByRole("button", { name: "Sign in" }).click();
-  await page.waitForURL("**/dashboard");
+  await page.waitForURL("**/admin/books");
 
   // Open Add Book page
   await page.goto("http://localhost:3000/admin/books/new");

@@ -46,13 +46,13 @@ export type BookActionResult =
 
 export const READING_STATUS_OPTIONS: { value: ReadingStatus; label: string }[] =
   [
-    { value: "UNREAD", label: "Unread" },
+    { value: "UNREAD", label: "TBR" },
     { value: "READING", label: "Reading" },
     { value: "FINISHED", label: "Finished" },
   ];
 
 export const READING_STATUS_LABELS: Record<ReadingStatus, string> = {
-  UNREAD: "Unread",
+  UNREAD: "TBR",
   READING: "Reading",
   FINISHED: "Finished",
 };

@@ -55,7 +55,7 @@ export function BooksTable({ books }: { books: BookListItem[] }) {
                 <td className="px-4 py-3 font-medium">{book.title}</td>
                 <td className="px-4 py-3 text-white/80">{book.author}</td>
                 <td className="px-4 py-3">
-                  <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs">
+                  <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${STATUS_STYLES[book.readingStatus]}`}>
                     {READING_STATUS_LABELS[book.readingStatus]}
                   </span>
                 </td>
@@ -94,3 +94,9 @@ export function BooksTable({ books }: { books: BookListItem[] }) {
     </>
   );
 }
+
+const STATUS_STYLES = {
+  UNREAD: "bg-blue-500/20 text-blue-300",
+  READING: "bg-orange-500/20 text-orange-300",
+  FINISHED: "bg-green-500/20 text-green-300",
+} as const;

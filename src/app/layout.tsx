@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: "Shelfery",
     template: "%s | Shelfery",
   },
-  description: "your reading starts here.",
+  description: "your reading era starts here.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
