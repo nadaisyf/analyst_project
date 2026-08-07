@@ -1,9 +1,9 @@
 import "server-only";
 
+import { Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { z } from "zod";
 
-import { Prisma } from "../../../generated/prisma";
 import { db } from "~/server/db";
 
 const registerSchema = z.object({
