@@ -108,8 +108,13 @@ describe("deleteBook", () => {
     const readingSessionBlock =
       /model ReadingSession \{([\s\S]*?)\}/.exec(schema)?.[1] ?? "";
 
-    expect(readingSessionBlock).toContain(
-      "book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)",
+    // Compare semantics, not formatting: `prisma db pull` / `prisma format`
+    // pads fields into aligned columns, so a literal substring check breaks
+    // even when the relation is unchanged. Assert only what matters — a
+    // relation field whose type is Book, declared with onDelete: Cascade —
+    // tolerating any whitespace or argument ordering.
+    expect(readingSessionBlock).toMatch(
+      /Book[?!]?\s+@relation\([^)]*onDelete\s*:\s*Cascade[^)]*\)/,
     );
   });
 });

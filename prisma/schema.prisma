@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -11,12 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ReadingStatus {
-  UNREAD
-  READING
-  FINISHED
-}
-
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -24,10 +15,9 @@ model User {
   emailVerified DateTime?
   image         String?
   passwordHash  String?
-
-  accounts Account[]
-  sessions Session[]
-  books    Book[]
+  accounts      Account[]
+  books         Book[]
+  sessions      Session[]
 }
 
 model Account {
@@ -44,8 +34,7 @@ model Account {
   id_token                 String?
   session_state            String?
   refresh_token_expires_in Int?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@index([userId])
@@ -56,8 +45,7 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
@@ -71,17 +59,16 @@ model VerificationToken {
 }
 
 model Book {
-  id            String        @id @default(cuid())
+  id            String           @id @default(cuid())
   userId        String
   title         String
   author        String
   totalPages    Int
-  readingStatus ReadingStatus @default(UNREAD)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
-
-  user     User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  sessions ReadingSession[]
+  readingStatus ReadingStatus    @default(UNREAD)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sessions      ReadingSession[]
 
   @@index([userId])
   @@index([readingStatus])
@@ -96,9 +83,14 @@ model ReadingSession {
   note        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  book        Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
 
   @@index([bookId])
   @@index([sessionDate])
+}
+
+enum ReadingStatus {
+  UNREAD
+  READING
+  FINISHED
 }

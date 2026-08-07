@@ -6,35 +6,40 @@ export default async function Home() {
   const session = await auth();
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="flex flex-col items-center gap-6 px-4">
-        <h1 className="text-5xl font-extrabold tracking-tight">Book Tracker</h1>
-        <p className="text-xl text-white/70">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#1b103f] via-[#2a1b63] to-[#45308d] px-4 text-white">
+      <div className="w-full max-w-xl rounded-[32px] border border-white/10 bg-white/10 p-12 text-center shadow-xl backdrop-blur-xl">
+        <h1 className="mb-4 text-6xl font-extrabold tracking-tight">
+          Shelfery
+        </h1>
+
+        <p className="mt-5 text-lg font-light tracking-wide text-white/70">
           {session?.user
             ? `Welcome back, ${session.user.name ?? "reader"}.`
-            : "Organize and track the books you read."}
+            : "Welcome to your reading era."}
         </p>
-        <div className="flex gap-4">
+
+        <div className="mt-10 flex flex-col items-center gap-4">
           {session?.user ? (
             <Link
-              href="/dashboard"
-              className="rounded-full bg-white/10 px-8 py-3 font-semibold transition hover:bg-white/20"
+              href="/admin/books"
+              className="rounded-full bg-white px-8 py-3 font-semibold text-[#2d1b69] transition duration-300 hover:scale-105 hover:shadow-xl"
             >
-              Go to dashboard
+              Open My Shelf
             </Link>
           ) : (
             <>
               <Link
-                href="/login"
-                className="rounded-full bg-white/10 px-8 py-3 font-semibold transition hover:bg-white/20"
-              >
-                Sign in
-              </Link>
-              <Link
                 href="/register"
-                className="rounded-full bg-white/10 px-8 py-3 font-semibold transition hover:bg-white/20"
+                className="rounded-full bg-white px-8 py-3 font-semibold text-[#2d1b69] transition duration-300 hover:scale-105"
               >
-                Create account
+                Start Reading
+              </Link>
+
+              <Link
+                href="/login"
+                className="text-white/70 transition hover:text-white"
+              >
+                Already have an account? Sign in
               </Link>
             </>
           )}

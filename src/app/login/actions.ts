@@ -26,7 +26,7 @@ export async function login(_prev: LoginState, formData: FormData) {
     await signIn("credentials", {
       email: parsed.data.email,
       password: parsed.data.password,
-      redirectTo: "/dashboard",
+      redirectTo: "/admin/books",
     });
     return undefined;
   } catch (error) {
